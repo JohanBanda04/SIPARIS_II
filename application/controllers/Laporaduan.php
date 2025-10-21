@@ -91,7 +91,11 @@ class Laporaduan extends CI_Controller
         if ($aksi == 'proses' or $aksi == 'konfirmasi' or $aksi == 'selesai') {
             $this->db->where('status', $aksi);
         }
+<<<<<<< HEAD
         $this->db->order_by('id_pengaduan', 'DESC');
+=======
+        $this->db->order_by('id_pengaduan','desc');
+>>>>>>> origin/main
         $data['query'] = $this->db->get("tbl_pengaduan");
 
         /*ambil data mpd dari tbl_petugas*/
@@ -216,10 +220,18 @@ class Laporaduan extends CI_Controller
             $data['judul_web'] = "Laporan Aduan";
         }
 
+<<<<<<< HEAD
+=======
+        //echo $p; die;
+>>>>>>> origin/main
         $this->load->view('users/header', $data);
         $this->load->view("users/laporaduan/$p", $data);
         $this->load->view('users/footer');
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/main
         date_default_timezone_set('Asia/Jakarta');
         $tgl = date('Y-m-d H:i:s');
 
@@ -846,6 +858,7 @@ class Laporaduan extends CI_Controller
 
 
 
+<<<<<<< HEAD
         if (isset($_POST['btnkirim'])) {
             $id_pengaduan = htmlentities(strip_tags($this->input->post('id_pengaduan')));
             $data_lama = $this->db->get_where('tbl_pengaduan', array('id_pengaduan' => $id_pengaduan))->row();
@@ -915,6 +928,9 @@ class Laporaduan extends CI_Controller
             }
             redirect('pengaduan/v');
         }
+=======
+
+>>>>>>> origin/main
 
     }
 

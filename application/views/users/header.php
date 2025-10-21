@@ -121,7 +121,11 @@ $sub_menu3 = strtolower($this->uri->segment(3));
 
             <!-- begin header navigation right -->
             <ul class="nav navbar-nav navbar-right">
+<<<<<<< HEAD
                 <li  class="dropdown">
+=======
+                <li class="dropdown">
+>>>>>>> origin/main
                     <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle icon" aria-expanded="false">
                         <i class="ion-ios-bell"></i>
                         <span class="label" id="jml_notif_bell">0</span>
@@ -193,6 +197,7 @@ $sub_menu3 = strtolower($this->uri->segment(3));
                 <li class="has-sub<?php if ($menu == 'users' AND $sub_menu == '' or $menu == 'dashboard') {
                     echo " active";
                 } ?>">
+<<<<<<< HEAD
                     <?php
                     $cek    = $this->db->get_where('tbl_user', ['id_user' => $this->session->userdata('id_user')])->row();
                     $level  = $cek->level;
@@ -217,10 +222,14 @@ $sub_menu3 = strtolower($this->uri->segment(3));
 
                 <li>
                     <a href="<?= $dashboard_link ?>">
+=======
+                    <a href="dashboard.html">
+>>>>>>> origin/main
                         <i class="ion-ios-pulse-strong"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
+<<<<<<< HEAD
                 </li>
 
                 <!-- MENU UMUM SAMPAI SINI -->
@@ -234,6 +243,9 @@ $sub_menu3 = strtolower($this->uri->segment(3));
                     </li>
                 <?php endif; ?>
                 <!-- AKHIR MENU KHUSUS UNTUK APH -->
+=======
+                <!-- MENU UMUM SAMPAI SINI -->
+>>>>>>> origin/main
 
                 <!-- MENU SUPER ADMIN -->
                 <?php if ($level == 'superadmin'): ?>
@@ -264,10 +276,17 @@ $sub_menu3 = strtolower($this->uri->segment(3));
                     <li <?php if ($menu == 'pengaduan' AND $sub_menu == 'v') {
                         echo " class='active'";
                     } ?>>
+<<<<<<< HEAD
                         <a href="pengaduan/v.html">
                             <div class="icon-img"><i class="fa fa-comments bg-blue"></i></div>
                             <span>Aduan Masyarakat</span>
                         </a>
+=======
+<!--                        <a href="pengaduan/v.html">-->
+<!--                            <div class="icon-img"><i class="fa fa-comments bg-blue"></i></div>-->
+<!--                            <span>Aduan Masyarakat</span>-->
+<!--                        </a>-->
+>>>>>>> origin/main
                     </li>
                     <li <?php if ($menu == 'notaris') {
                         echo " class='active'";
@@ -295,7 +314,11 @@ $sub_menu3 = strtolower($this->uri->segment(3));
                         </a>
 
                     </li>
+<<<<<<< HEAD
                     <li  <?php if ($menu == 'persuratan' AND $sub_menu == 'v') {
+=======
+                    <li <?php if ($menu == 'persuratan' AND $sub_menu == 'v') {
+>>>>>>> origin/main
                         echo " class='active'";
                     } ?>>
                         <a href="persuratan/v.html">
@@ -374,10 +397,17 @@ $sub_menu3 = strtolower($this->uri->segment(3));
                     <li <?php if ($menu == 'pengaduan' AND $sub_menu == 'v') {
                         echo " class='active'";
                     } ?>>
+<<<<<<< HEAD
                         <a href="pengaduan/v.html">
                             <div class="icon-img"><i class="fa fa-comments bg-blue"></i></div>
                             <span>Aduan Masyarakat</span>
                         </a>
+=======
+<!--                        <a href="pengaduan/v.html">-->
+<!--                            <div class="icon-img"><i class="fa fa-comments bg-blue"></i></div>-->
+<!--                            <span>Aduan Masyarakat</span>-->
+<!--                        </a>-->
+>>>>>>> origin/main
                     </li>
                     <li <?php if ($menu == 'notaris') {
                         echo " class='active'";
@@ -402,10 +432,17 @@ $sub_menu3 = strtolower($this->uri->segment(3));
                     <li <?php if ($menu == 'pengaduan' AND $sub_menu == 'v') {
                         echo " class='active'";
                     } ?>>
+<<<<<<< HEAD
                         <a href="pengaduan/v.html">
                             <div class="icon-img"><i class="fa fa-comments bg-blue"></i></div>
                             <span>Pengaduan</span>
                         </a>
+=======
+<!--                        <a href="pengaduan/v.html">-->
+<!--                            <div class="icon-img"><i class="fa fa-comments bg-blue"></i></div>-->
+<!--                            <span>Pengaduan</span>-->
+<!--                        </a>-->
+>>>>>>> origin/main
                     </li>
                     <li class="nav-header"></li>
                     <li <?php if ($menu == 'notaris') {
@@ -417,6 +454,7 @@ $sub_menu3 = strtolower($this->uri->segment(3));
                         </a>
                     </li>
                 <?php endif; ?>
+<<<<<<< HEAD
                 <li <?php if ($menu == 'laporaduan' AND $sub_menu == 'v') {
                     echo " class='active'";
                 } ?>>
@@ -444,6 +482,53 @@ $sub_menu3 = strtolower($this->uri->segment(3));
                         <span>Permohonan Cuti</span>
                     </a>
                 </li>
+=======
+
+                <?php
+                $cutiMenuAllowed = ['user', 'notaris', 'petugas'];
+                if (in_array($level, $cutiMenuAllowed)) {
+                    ?>
+                    <li <?php if ($menu == 'laporaduan' AND $sub_menu == 'v') {
+                        echo " class='active'";
+                    } ?>>
+                        <a href="laporaduan/v.html">
+                            <div class="icon-img"><i class="fa fa-bullhorn bg-red"
+                                                     style="background-color: #e509ff !important;"></i>
+                            </div>
+                            <span>Laporan Aduan</span>
+                        </a>
+                    </li>
+                    <?php
+                }
+                ?>
+
+
+                <?php
+                $allowedMenuCuties = ['petugas','notaris'];
+
+                if(in_array($level,$allowedMenuCuties)){
+                    ?>
+                    <li <?php if ($menu == 'cuti' AND $sub_menu == 'v') {
+                        echo " class='active'";
+                    } ?>>
+                        <!--menu view for mpd & notaris-->
+                        <?php
+                        $display = '';
+                        if ($level == "user") {
+                            $display = 'display: none;';
+                        }
+                        ?>
+                        <a style="<?= $display ?>" href="cuti/v.html">
+                            <div class="icon-img"><i class="fa fa-umbrella bg-blue"></i></div>
+                            <span>Permohonan Cuties</span>
+                        </a>
+
+                    </li>
+                    <?php
+                }
+                ?>
+
+>>>>>>> origin/main
                 <!-- MENU NOTARIS -->
                 <?php if ($level == 'notaris'): ?>
                     <li <?php if ($menu == 'laporan' AND $sub_menu == 'v') {

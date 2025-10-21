@@ -39,7 +39,11 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-12"><b>KFilter Pengaduan</b></div>
+<<<<<<< HEAD
                         <div class="col-md-3">
+=======
+                        <div class="col-md-4">
+>>>>>>> origin/main
                             <select class="form-control default-select2" id="stt">
                                 <option value="">- Semua -</option>
                                 <option value="proses" <?php if ('proses' == $link3) {
@@ -64,12 +68,21 @@
                                 </option>
                             </select>
                         </div>
+<<<<<<< HEAD
                         <div class="col-md-1">
                             <button class="btn btn-default"
                                     onclick="window.location.href='pengaduan/v/'+$('#stt').val();"><i
                                         class="fa fa-search"></i> Filter
                             </button>
                         </div>
+=======
+<!--                        <div class="col-md-1">-->
+<!--                            <button class="btn btn-default"-->
+<!--                                    onclick="window.location.href='pengaduan/v/'+$('#stt').val();"><i-->
+<!--                                        class="fa fa-search"></i> Filter-->
+<!--                            </button>-->
+<!--                        </div>-->
+>>>>>>> origin/main
                         <div class="col-md-6"></div>
                         <div hidden class="col-md-2">
                             <?php if ($level == 'user'): ?>
@@ -78,11 +91,23 @@
                             <?php endif; ?>
                         </div>
 
+<<<<<<< HEAD
                         <div class="col-md-2">
 
                             <a href="<?php echo strtolower($this->uri->segment(1)); ?>/<?php echo strtolower($this->uri->segment(2)); ?>/t.html"
                                class="btn btn-primary" style="float:right;">Buat Aduans </a>
                         </div>
+=======
+                        <?php
+                        if($level=='user'){ ?>
+                            <div class="col-md-2">
+                                <a href="<?php echo strtolower($this->uri->segment(1)); ?>/<?php echo strtolower($this->uri->segment(2)); ?>/t.html"
+                                   class="btn btn-primary" style="float:right;">Buat Aduans </a>
+                            </div>
+                        <?php }
+                        ?>
+
+>>>>>>> origin/main
                     </div>
 
                     <hr>
@@ -92,7 +117,12 @@
                             <tr>
                                 <th width="3%">NO.</th>
                                 <th width="15%">Waktu</th>
+<<<<<<< HEAD
                                 <th width="30%">Pengaduan</th>
+=======
+                                <th width="20%">Pengaduan</th>
+                                <th width="10%">Terlapor</th>
+>>>>>>> origin/main
                                 <th width="20%">MPD Penanggunjawab</th>
                                 <th width="17%">Status</th>
                                 <th width="25%" style="text-align: center">Detail</th>
@@ -106,7 +136,31 @@
                                 <tr>
                                     <td><b><?php echo $no++; ?>.</b></td>
                                     <td><?php echo $this->Mcrud->tgl_id(date('d-m-Y H:i:s', strtotime($baris->tgl_pengaduan)), 'full'); ?></td>
+<<<<<<< HEAD
                                     <td><?php echo $baris->isi_pengaduan; ?></td>
+=======
+                                    <td>
+                                        <?php
+                                        $isi_full = strip_tags($baris->isi_pengaduan);
+                                        $maxlen = 150;
+                                        $detailUrl = strtolower($this->uri->segment(1)) . '/' . strtolower($this->uri->segment(2)) . '/d/' . hashids_encrypt($baris->id_pengaduan);
+
+                                        if (strlen($isi_full) > $maxlen) {
+                                            $isi_short = substr($isi_full, 0, $maxlen) . '... ';
+                                            echo $isi_short;
+                                            echo '<a href="' . $detailUrl . '" class="text-primary read-more-link" title="Lihat detail aduan">Read more..</a>';
+                                        } else {
+                                            echo $isi_full;
+                                        }
+                                        ?>
+                                    </td>
+                                    <td><?php
+                                        $getTerlapor = $this->db->get_where('tbl_sub_kategori',array('id_sub_kategori'=>$baris->id_sub_kategori))
+                                            ->row()->nama_sub_kategori??'Notaris Belum Terdaftar di Sub Kategori';
+                                        echo $getTerlapor;
+                                        ?>
+                                    </td>
+>>>>>>> origin/main
                                     <td><?php
                                             $idSubKategori = $baris->id_sub_kategori;
                                             $namaSubKategori = $this->db->get_where('tbl_sub_kategori',array('id_sub_kategori'=>$idSubKategori))
@@ -118,7 +172,11 @@
                                             $getIdMpdPetugas = $this->db->get('tbl_data_notaris',1)->row();
                                             $idMpdPetugasOnly = $getIdMpdPetugas->mpd_area_id??'';
                                             $namaPetugas = $this->db->get_where('tbl_petugas',array('id_petugas'=>$idMpdPetugasOnly))
+<<<<<<< HEAD
                                                 ->row()->nama??'';
+=======
+                                                ->row()->nama??'Belum Ada MPD';
+>>>>>>> origin/main
                                             echo $namaPetugas;
                                         ?>
                                     </td>
@@ -299,7 +357,74 @@
 </div>
 <!-- end #content -->
 <!-- Modal Tindak Lanjut -->
+<<<<<<< HEAD
 <?php echo $this->load->view('users/laporaduan/modal_update_status'); ?>
+=======
+<?php $this->load->view('users/laporaduan/modal_update_status'); ?>
+<!-- Filter Dropdown Dinamis -->
+<!-- Filter Dropdown Dinamis (Fix Versi Status Teks) -->
+<script>
+    $(document).ready(function () {
+        var defaultStatus = "<?= strtolower($this->uri->segment(3)); ?>";
+        $('#stt').val(defaultStatus);
+
+        var selectedStatus = defaultStatus || "";
+
+        // Peta antara value dropdown dan teks tampilan di tabel
+        var statusMap = {
+            'proses': 'Aduan Baru',
+            'dispo_mpd': 'Disposisi ke MPD',
+            'konfirmasi': 'Sedang Ditangani',
+            'tolak': 'Ditolak',
+            'selesai': 'Selesai'
+        };
+
+        // Inisialisasi DataTable
+        var table = $('#data-table').DataTable({
+            responsive: true,
+            order: [[1, 'asc']],
+            columnDefs: [{
+                targets: 0,
+                searchable: false,
+                orderable: false
+            }],
+            drawCallback: function (settings) {
+                var api = this.api();
+                api.column(0, {search: 'applied', order: 'applied'})
+                    .nodes()
+                    .each(function (cell, i) {
+                        cell.innerHTML = (i + 1) + '.';
+                    });
+            }
+        });
+
+        // Tambahkan custom filter
+        if (!$.fn.dataTable.ext.search._laporaduanFilterAdded) {
+            $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+                var textStatus = (data[5] || '').trim(); // Kolom ke-6 (Status)
+                var wantedText = statusMap[selectedStatus] || ""; // Konversi value → label teks
+
+                if (!selectedStatus || textStatus.toLowerCase() === wantedText.toLowerCase()) {
+                    return true;
+                }
+                return false;
+            });
+            $.fn.dataTable.ext.search._laporaduanFilterAdded = true;
+        }
+
+        // Event: saat dropdown berubah
+        $('#stt').on('change', function () {
+            selectedStatus = $(this).val().toLowerCase().trim();
+            table.draw();
+        });
+
+        // Jalankan pertama kali
+        table.draw();
+    });
+</script>
+
+
+>>>>>>> origin/main
 <script>
     $(document).ready(function () {
         $('.btn-delete').on('click', function (e) {

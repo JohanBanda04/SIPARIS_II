@@ -142,6 +142,10 @@
                                                data-id="<?= $baris->id_cuti; ?>"
                                                data-status="<?= $baris->status; ?>"
                                                data-catatan="<?= htmlspecialchars($baris->catatan, ENT_QUOTES); ?>"
+<<<<<<< HEAD
+=======
+                                               data-sk="<?= $baris->sk_cuti_bympd; ?>"
+>>>>>>> origin/main
                                                title="sTindak Lanjut" style="<?= $display; ?>">
                                                 <i class="fa fa-forward"></i>
                                             </a>
@@ -190,6 +194,7 @@
     </div>
     <!-- end row -->
     <!-- Modal -->
+<<<<<<< HEAD
     <div class="modal fade" id="modalTindakLanjut" tabindex="-1" role="dialog" aria-labelledby="modalTitle"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -249,6 +254,10 @@
             </div>
         </div>
     </div>
+=======
+    <?php $this->load->view('users/cuti/modal_tindak_lanjut'); ?>
+
+>>>>>>> origin/main
 
 
 </div>
@@ -284,6 +293,7 @@
             var idCuti = $(this).data('id');
             var status = $(this).data('status');
             var catatan = $(this).data('catatan') || "";
+<<<<<<< HEAD
             var level = "<?= $level ?>";
 
             $('#id_cuti').val(idCuti);
@@ -300,12 +310,51 @@
                 } else {
                     defaultVal = "dispo_mpd";
                 }
+=======
+            var fileSk  = $(this).data('sk') || "";
+            var level   = "<?= $level ?>";
+
+                  // isi form dasar
+            $('#id_cuti').val(idCuti);
+            $('#catatan_petugas').val(catatan);
+
+            // 🔹 Hapus link SK lama agar tidak menumpuk
+            $('#sk_cuti_bympd').next('.link-skcuti').remove();
+
+            // 🔹 Tampilkan link SK lama jika ada
+            if (fileSk && fileSk !== "null") {
+                const baseUrl = "<?= base_url(); ?>";
+                const fileLink = `
+                <p class="mt-2 link-skcuti">
+                    File saat ini:
+                    <a href="${baseUrl}${fileSk}" target="_blank" class="btn btn-link">
+                        <i class="fa fa-file"></i> Lihat SK Cuti
+                    </a>
+                </p>`;
+                $('#sk_cuti_bympd').after(fileLink);
+            }
+
+
+            // 🔹 Atur nilai dropdown tindakan sesuai level
+            if (level === "petugas") {
+                let defaultVal = "";
+                if (status === "dispo_mpd") defaultVal = "dispo_mpd";
+                else if (status === "approve") defaultVal = "approve";
+                else if (status === "decline") defaultVal = "decline";
+                else defaultVal = "dispo_mpd";
+>>>>>>> origin/main
                 $('#aksi').val(defaultVal).trigger('change');
             } else {
                 $('#aksi').val(status).trigger('change');
             }
 
+<<<<<<< HEAD
             $('#modalTindakLanjut').modal('show');
+=======
+            // Tampilkan modal
+            $('#modalTindakLanjut').modal('show');
+
+>>>>>>> origin/main
         });
 
         // --- inisialisasi DataTable + filter realtime
